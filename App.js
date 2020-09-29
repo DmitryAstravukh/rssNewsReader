@@ -76,7 +76,7 @@ export default function App() {
             {props => <ThemeSelection {...props} />}
           </Stack.Screen>
 
-          <Stack.Screen name='SelectedNews' options={{ title: 'Новости' }}>
+          <Stack.Screen name='SelectedNews' options={{ title: 'Новости', headerLeft: null }}>
             {props => <SelectedNews {...props} />}
           </Stack.Screen> 
 

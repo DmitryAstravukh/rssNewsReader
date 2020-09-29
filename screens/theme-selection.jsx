@@ -7,7 +7,6 @@ import { getAllChanels, toggleActiveSelectionTheme } from './../redux/actions';
 export const ThemeSelection = () => {
 
   const rssChannels = useSelector(state => state.rssChannels);
-  const maxRssChannels = useSelector(state => state.maxRssChannels);
   const selectedChannelsId = useSelector(state => state.selectedChannelsId);
 
   const dispatch = useDispatch();
@@ -20,7 +19,6 @@ export const ThemeSelection = () => {
     <Container>
       {
         rssChannels.map(channel => {
-          console.log(selectedChannelsId);
           if(selectedChannelsId.includes(channel.id)){
             return (
               <ThemeItem key={channel.id} onPress={() => dispatch(toggleActiveSelectionTheme(channel.id))}>
@@ -37,12 +35,17 @@ export const ThemeSelection = () => {
           )
         })
       }
-      
+
+      {
+        selectedChannelsId.length > 0 
+          ? <ContinueBtn><ContinueBtnText>Продолжить</ContinueBtnText></ContinueBtn>
+          : <ContinueBtnDisabled><ContinueBtnText>Выберите тему(ы)</ContinueBtnText></ContinueBtnDisabled>
+      }  
     </Container>
   )
 }
 
-const Container = styled.View`
+const Container = styled.ScrollView`
   padding: 5px;
 `;
 
@@ -74,7 +77,7 @@ const ThemeItemCheckBoxActive = styled.View`
 
 const ThemeItemCheckBox = styled.View`
   border-radius: 50px;
-  background-color: gray;
+  background-color: ${styleVariables.DISABLED_CHECKBOX_COLOR};
   flex: 0 0 30px;
   height: 30px;
   justify-content: center;
@@ -86,4 +89,31 @@ const ThemeItemCheckBoxMini = styled.View`
   background-color: white;
   width: 12px;
   height: 12px;
+`;
+
+const ContinueBtn = styled.TouchableOpacity`
+  width: 90%;
+  height: 60px;
+  background-color: ${styleVariables.MAIN_COLOR};
+  color: ${styleVariables.MAIN_TEXT_COLOR_LIGHT};
+  margin: 0 auto 10px auto;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+`;
+
+const ContinueBtnDisabled = styled.View`
+  width: 90%;
+  height: 60px;
+  background-color: ${styleVariables.DISABLED_BTN_COLOR};
+  color: ${styleVariables.MAIN_TEXT_COLOR_LIGHT};
+  margin: 0 auto 10px auto;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+`;
+
+const ContinueBtnText = styled.Text`
+  font-size: 20px;
+  color: ${styleVariables.MAIN_TEXT_COLOR_LIGHT};
 `;

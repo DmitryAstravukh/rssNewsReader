@@ -6,6 +6,9 @@ export const MAIN_BACKGROUND_COLOR = '#f2f2f2';
 export const THEME_ITEM_COLOR = '#dfdfdf';
 export const ACTIVE_CHECKBOX_COLOR = '#47a690';
 
+export const DISABLED_BTN_COLOR = 'gray';
+export const DISABLED_CHECKBOX_COLOR = 'gray';
+
 export const MAIN_BUTTON_BACKGROUND_COLOR = '#8529e4';
 export const MAIN_BUTTON_TEXT_COLOR = '#f2f2f2';
 
