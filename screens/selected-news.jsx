@@ -1,20 +1,16 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { SectionList } from 'react-native';
+import React from 'react';
 import styled from 'styled-components/native';
 
-export const SelectedNews = (props) => {
+export const SelectedNews = () => {
   return (
-    <Container>
-      <Text>SelectedNews</Text>
-    </Container>
+    <Container>SelectedNews</Container>
   )
 }
 
-const Container = styled.View`
-  background-color: red;
-`;
-
-const Text = styled.Text`
-
+const Container = styled.Text`
+  font-size: 30px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  margin-top: 20px;
+  text-align: center;
 `;

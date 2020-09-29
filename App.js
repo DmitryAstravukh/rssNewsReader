@@ -31,11 +31,10 @@ import 'react-native-gesture-handler';
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { ThemeSelection } from './screens';
+import { ThemeSelection, SelectedNews, NewsList } from './screens';
 import { Provider } from 'react-redux';
 import store from './redux/store';
 import * as styleVariables from './style-variables';
-import styled from 'styled-components/native';
 import { WebView } from 'react-native-webview';
 import HTMLParser from 'fast-html-parser';
 
@@ -67,7 +66,7 @@ export default function App() {
                             headerStyle: {
                               backgroundColor: styleVariables.MAIN_COLOR,
                             },
-                            headerTintColor: styleVariables.MAIN_TEXT_COLOR,
+                            headerTintColor: styleVariables.MAIN_TEXT_COLOR_LIGHT,
                             headerTitleStyle: {
                               fontWeight: 'bold'
                             },
@@ -77,22 +76,16 @@ export default function App() {
             {props => <ThemeSelection {...props} />}
           </Stack.Screen>
 
-          {/* <Stack.Screen name='SelectedNews' options={{ title: 'Новости' }}>
+          <Stack.Screen name='SelectedNews' options={{ title: 'Новости' }}>
             {props => <SelectedNews {...props} />}
-          </Stack.Screen>  */}
+          </Stack.Screen> 
+
+          <Stack.Screen name='NewsList' options={{ title: 'Новость' }}>
+            {props => <NewsList {...props} />}
+          </Stack.Screen> 
 
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
   );
 }
-
-
-const Container = styled.View`
-  background-color: red;
-  margin-top: 25px;
-`;
-
-const Text = styled.Text`
-
-`;
