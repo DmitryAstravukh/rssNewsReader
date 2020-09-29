@@ -1,0 +1,1 @@
+export const GET_ALL_CHANNELS = 'GET_ALL_CHANNELS';
