@@ -3,44 +3,44 @@ import { GET_ALL_CHANNELS, TOGGLE_ACTIVE_SELECTION_THEME } from './actions-types
 const inicialState = {
   rssChannels: [
     {
+      id: 0,
+      name: 'Киберспорт',
+      link: 'cyber_sport.rss'
+    },
+    {
       id: 1,
-      name: 'Главные новости недели',
-      link: 'https://news.tut.by/rss/index.rss'
+      name: 'Интернет',
+      link: 'internet.rss'
     },
     {
       id: 2,
-      name: 'Деньги и власть',
-      link: 'https://news.tut.by/rss/economics.rss'
+      name: 'Общество',
+      link: 'society.rss'
     },
     {
       id: 3,
-      name: 'Общество',
-      link: 'https://news.tut.by/rss/society.rss'
+      name: 'В мире',
+      link: 'world.rss'
     },
     {
       id: 4,
-      name: 'В мире',
-      link: 'https://news.tut.by/rss/world.rss'
+      name: 'Финансы',
+      link: 'finances.rss'
     },
     {
       id: 5,
-      name: 'Финансы',
-      link: 'https://news.tut.by/rss/finance.rss'
+      name: 'Недвижимость',
+      link: 'realty.rss'
     },
     {
       id: 6,
-      name: 'Недвижимость',
-      link: 'https://news.tut.by/rss/realty.rss'
+      name: 'Спорт',
+      link: 'sport.rss'
     },
     {
       id: 7,
-      name: 'Спорт',
-      link: 'https://news.tut.by/rss/sport.rss'
-    },
-    {
-      id: 8,
       name: 'Авто',
-      link: 'https://news.tut.by/rss/auto.rss'
+      link: 'auto.rss'
     }
   ],
   maxRssChannels: 3,

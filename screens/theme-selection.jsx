@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from 'styled-components/native';
 import * as styleVariables from './../style-variables';
 import { getAllChanels, toggleActiveSelectionTheme } from './../redux/actions';
 
-export const ThemeSelection = () => {
+export const ThemeSelection = ({ navigation }) => {
 
   const rssChannels = useSelector(state => state.rssChannels);
   const selectedChannelsId = useSelector(state => state.selectedChannelsId);
@@ -38,7 +38,7 @@ export const ThemeSelection = () => {
 
       {
         selectedChannelsId.length > 0 
-          ? <ContinueBtn><ContinueBtnText>Продолжить</ContinueBtnText></ContinueBtn>
+          ? <ContinueBtn onPress={() => navigation.push('SelectedNews') }><ContinueBtnText>Продолжить</ContinueBtnText></ContinueBtn>
           : <ContinueBtnDisabled><ContinueBtnText>Выберите тему(ы)</ContinueBtnText></ContinueBtnDisabled>
       }  
     </Container>
