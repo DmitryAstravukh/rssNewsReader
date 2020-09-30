@@ -15,6 +15,7 @@ export const ThemeSelection = ({ navigation }) => {
     dispatch(getAllChanels())
   }, [rssChannels, selectedChannelsId]);
 
+
   return (
     <Container>
       {
@@ -38,7 +39,7 @@ export const ThemeSelection = ({ navigation }) => {
 
       {
         selectedChannelsId.length > 0 
-          ? <ContinueBtn onPress={() => navigation.push('SelectedNews') }><ContinueBtnText>Продолжить</ContinueBtnText></ContinueBtn>
+          ? <ContinueBtn onPress={() => navigation.push('NewsList') }><ContinueBtnText>Продолжить</ContinueBtnText></ContinueBtn>
           : <ContinueBtnDisabled><ContinueBtnText>Выберите тему(ы)</ContinueBtnText></ContinueBtnDisabled>
       }  
     </Container>

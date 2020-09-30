@@ -13,8 +13,6 @@ export default class Api {
   getRssNews = (link) => {
     return this.#ax.get(link).then(rss => {
       return this.#xmlParser.parseFromString(rss.data).getElementsByTagName('item');
-      //return rss.data;
-      //return rssParser.parse(rss.data);
     })
   }
 

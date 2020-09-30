@@ -1,4 +1,13 @@
-import { GET_ALL_CHANNELS, TOGGLE_ACTIVE_SELECTION_THEME } from './actions-types';
+import { 
+  GET_ALL_CHANNELS, 
+  TOGGLE_ACTIVE_SELECTION_THEME, 
+  SET_SELECTED_CHANNELS_DATA,
+  CLEAR_SELECTED_CHANNELS_DATA } from './actions-types';
+
+import { setSelectedChannelsData, clearSelectedChannelsData } from './actions';
+import Api from '../api/api';
+
+const api = new Api();
 
 const inicialState = {
   rssChannels: [
@@ -45,12 +54,12 @@ const inicialState = {
   ],
   maxRssChannels: 3,
   selectedChannelsId: [],
+  selectedChannelsData: []
 };
 
 const getAllChannels = state => {
   return state;
 }
-
 
 export const toggleActiveSelectionTheme = (state, id) => {
   if(state.selectedChannelsId.length + 1 <= state.maxRssChannels) {
@@ -79,6 +88,30 @@ export const toggleActiveSelectionTheme = (state, id) => {
   return state
 }
 
+
+export const getSelectedChannelsData = () => (dispatch, getState) => {
+  dispatch(clearSelectedChannelsData());
+
+  let { selectedChannelsId, rssChannels } = getState();
+  selectedChannelsId.map(id => {
+    api.getRssNews(rssChannels[id].link).then(newsArr => {
+      let data = newsArr.map(item => {
+        return {
+          title: item.children[0].value,
+          link: item.children[1].value,
+          date: item.children[7].value,
+          imageUrl: item.children[8].attributes.url,
+        }
+      })
+      let obj = {
+        channelName: rssChannels[id].name,
+        data
+      }
+      dispatch(setSelectedChannelsData(obj));
+    })
+  })
+}
+
 const reducer = (state = inicialState, action) => {
   switch(action.type){
     case GET_ALL_CHANNELS: 
@@ -86,6 +119,21 @@ const reducer = (state = inicialState, action) => {
 
     case TOGGLE_ACTIVE_SELECTION_THEME: 
       return toggleActiveSelectionTheme(state, action.id);
+
+    case SET_SELECTED_CHANNELS_DATA: 
+      return {
+        ...state,
+        selectedChannelsData: [
+          ...state.selectedChannelsData,
+          action.obj
+        ]
+      }
+
+    case CLEAR_SELECTED_CHANNELS_DATA: 
+      return {
+        ...state,
+        selectedChannelsData: []
+      }
 
     default: return state;
   }

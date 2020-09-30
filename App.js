@@ -76,12 +76,12 @@ export default function App() {
             {props => <ThemeSelection {...props} />}
           </Stack.Screen>
 
-          <Stack.Screen name='SelectedNews' options={{ title: 'Новости' }}>{/*, headerLeft: null */}
-            {props => <SelectedNews {...props} />}
+          <Stack.Screen name='NewsList' options={{ title: 'Новости' }}>{/*, headerLeft: null */}
+            {props => <NewsList {...props} />}
           </Stack.Screen> 
 
-          <Stack.Screen name='NewsList' options={{ title: 'Новость' }}>
-            {props => <NewsList {...props} />}
+          <Stack.Screen name='SelectedNews' options={{ title: 'Новость' }}>
+            {props => <SelectedNews {...props} />}
           </Stack.Screen> 
 
         </Stack.Navigator>
