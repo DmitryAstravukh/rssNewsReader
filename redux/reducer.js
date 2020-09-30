@@ -4,13 +4,13 @@ const inicialState = {
   rssChannels: [
     {
       id: 0,
-      name: 'Киберспорт',
-      link: 'cyber_sport.rss'
+      name: 'Главные новости недели',
+      link: 'index.rss'
     },
     {
       id: 1,
-      name: 'Интернет',
-      link: 'internet.rss'
+      name: 'Происшествия',
+      link: 'realty.rss'
     },
     {
       id: 2,
@@ -25,7 +25,7 @@ const inicialState = {
     {
       id: 4,
       name: 'Финансы',
-      link: 'finances.rss'
+      link: 'finance.rss'
     },
     {
       id: 5,
