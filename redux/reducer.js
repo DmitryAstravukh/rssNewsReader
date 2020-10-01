@@ -95,6 +95,7 @@ const getDateAndImgUrl = array => {
     if(!isNaN(Date.parse(item.value))) date = item.value;
     if(item.name === 'media:content') imgUrl = item.attributes.url
   })
+  date = date.substring(0, date.length-6);
   return [date, imgUrl];
 }
 
