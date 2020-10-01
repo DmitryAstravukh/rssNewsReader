@@ -88,28 +88,45 @@ export const toggleActiveSelectionTheme = (state, id) => {
   return state
 }
 
+const getDateAndImgUrl = array => {
+  let date = '';
+  let imgUrl = '';
+  array.forEach(item => {
+    if(!isNaN(Date.parse(item.value))) date = item.value;
+    if(item.name === 'media:content') imgUrl = item.attributes.url
+  })
+  return [date, imgUrl];
+}
+
 
 export const getSelectedChannelsData = () => (dispatch, getState) => {
   dispatch(clearSelectedChannelsData());
 
   let { selectedChannelsId, rssChannels } = getState();
-  selectedChannelsId.map(id => {
-    api.getRssNews(rssChannels[id].link).then(newsArr => {
-      let data = newsArr.map(item => {
-        return {
-          title: item.children[0].value,
-          link: item.children[1].value,
-          date: item.children[7].value,
-          imageUrl: item.children[8].attributes.url,
-        }
-      })
-      let obj = {
-        channelName: rssChannels[id].name,
-        data
+  
+    selectedChannelsId.map(id => {
+      try {
+        api.getRssNews(rssChannels[id].link).then(newsArr => {
+          let data = newsArr.map(item => {
+            return {
+              title: item.children[0].value,
+              link: item.children[1].value,
+              date: getDateAndImgUrl(item.children)[0],
+              imageUrl: getDateAndImgUrl(item.children)[1]
+            }
+          })
+          let obj = {
+            channelName: rssChannels[id].name,
+            data
+          }
+          dispatch(setSelectedChannelsData(obj));
+        })
+      } catch (error) {
+        alert(error.message)
       }
-      dispatch(setSelectedChannelsData(obj));
     })
-  })
+  
+  
 }
 
 const reducer = (state = inicialState, action) => {

@@ -4,7 +4,6 @@ import styled from 'styled-components/native';
 import * as styleVariables from './../style-variables';
 import { getSelectedChannelsData } from './../redux/reducer';
 import noImg from './../assets/noImg.jpg';
-//import { FlatList } from 'react-native';
 
 const ThemeItemComponent = ({ imageUrl, title, date, link, navigation }) => {
   return (
@@ -25,11 +24,6 @@ const Theme = ({ obj, navigation }) => {
   return (
     <ThemeContainer>
       <ThemeName>{obj.channelName}</ThemeName>
-      {/* <FlatList
-        data={obj.data}
-        renderItem={ThemeItemComponent}
-        keyExtractor={item => item.link}
-      /> */}
       {
         obj.data.map(news => {
           return <ThemeItemComponent key={news.link} {...news} navigation={navigation}/>
@@ -40,13 +34,12 @@ const Theme = ({ obj, navigation }) => {
 }
 
 
-
 export const NewsList = ({ navigation }) => {
   const dispatch = useDispatch();
 
   const selectedChannelsId = useSelector(state => state.selectedChannelsId);
   const selectedChannelsData = useSelector(state => state.selectedChannelsData);
-  if(selectedChannelsId.length < 1) navigation.goBack();
+  //if(selectedChannelsId.length < 1) navigation.goBack();
   
   useEffect(() => {
     dispatch(getSelectedChannelsData())

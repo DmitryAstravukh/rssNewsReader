@@ -1,32 +1,3 @@
-// import { StatusBar } from 'expo-status-bar';
-// import React from 'react';
-// import { StyleSheet, Text, View } from 'react-native';
-// import { WebView } from 'react-native-webview';
-// import HTMLParser from 'fast-html-parser';
-
-// export default function App() {
-  // const getMoviesFromApi = async () => {
-  //   try {
-  //     const response = await fetch('https://news.tut.by/rss.html');
-  //     let text = await response.text();
-  //     //console.log(text);
-  //     return text;
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
-
-  // getMoviesFromApi().then(html => {
-  //   let parsedHTML = HTMLParser.parse(html);
-  //   console.log(parsedHTML.querySelectorAll('.b-lists .lists__li a')[0])
-  // });
-
-
-//   return (
-//     <WebView source={{ uri: 'https://news.tut.by/rss.html' }} style={{ marginTop: 20 }} />
-//   );
-// }
-
 import 'react-native-gesture-handler';
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
@@ -35,30 +6,11 @@ import { ThemeSelection, SelectedNews, NewsList } from './screens';
 import { Provider } from 'react-redux';
 import store from './redux/store';
 import * as styleVariables from './style-variables';
-import { WebView } from 'react-native-webview';
-import HTMLParser from 'fast-html-parser';
 
 const Stack = createStackNavigator();
 
-export default function App() {
-
-  // const getMoviesFromApi = async () => {
-  //   try {
-  //     const response = await fetch('https://news.tut.by/rss.html');
-  //     let text = await response.text();
-  //     //console.log(text);
-  //     return text;
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
-
-  // getMoviesFromApi().then(html => {
-  //   let parsedHTML = HTMLParser.parse(html);
-  //   console.log(parsedHTML.querySelectorAll('.b-lists .lists__li a')[0])
-  // });
+const App = () => {
   return (
-    // <WebView source={{ uri: 'https://news.tut.by/rss.html' }} style={{ marginTop: 20 }} />
     <Provider store={store}>
       <NavigationContainer >
         <Stack.Navigator  initialRouteName='ThemeSelection'
@@ -89,3 +41,5 @@ export default function App() {
     </Provider>
   );
 }
+
+export default App;
