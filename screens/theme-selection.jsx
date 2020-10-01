@@ -1,8 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from 'styled-components/native';
 import * as styleVariables from './../style-variables';
 import { getAllChanels, toggleActiveSelectionTheme } from './../redux/actions';
+import { AntDesign } from '@expo/vector-icons';
+import { Alert } from "react-native"; 
 
 export const ThemeSelection = ({ navigation }) => {
 
@@ -15,39 +17,60 @@ export const ThemeSelection = ({ navigation }) => {
     dispatch(getAllChanels())
   }, [rssChannels, selectedChannelsId]);
 
+  const About = () => {
+    Alert.alert(
+      'О разработчике',
+      'Разработал - Астраух Д.С., гр. 881061',
+      [{ text: "Дай бог ему здоровья"}],
+      { cancelable: false }
+    );
+  }
 
   return (
-    <Container>
-      {
-        rssChannels.map(channel => {
-          if(selectedChannelsId.includes(channel.id)){
+    <Fragment>
+      <Info onPress={About}>
+        <AntDesign name="infocirlceo" size={32} color={styleVariables.MAIN_TEXT_COLOR_LIGHT} />
+      </Info>
+      <Container>
+        {
+          rssChannels.map(channel => {
+            if(selectedChannelsId.includes(channel.id)){
+              return (
+                <ThemeItem key={channel.id} onPress={() => dispatch(toggleActiveSelectionTheme(channel.id))}>
+                  <ThemeItemText numberOfLines={1}>{channel.name}</ThemeItemText>
+                  <ThemeItemCheckBoxActive><ThemeItemCheckBoxMini></ThemeItemCheckBoxMini></ThemeItemCheckBoxActive>
+                </ThemeItem>
+              )
+            }
             return (
               <ThemeItem key={channel.id} onPress={() => dispatch(toggleActiveSelectionTheme(channel.id))}>
                 <ThemeItemText numberOfLines={1}>{channel.name}</ThemeItemText>
-                <ThemeItemCheckBoxActive><ThemeItemCheckBoxMini></ThemeItemCheckBoxMini></ThemeItemCheckBoxActive>
+                <ThemeItemCheckBox><ThemeItemCheckBoxMini></ThemeItemCheckBoxMini></ThemeItemCheckBox>
               </ThemeItem>
             )
-          }
-          return (
-            <ThemeItem key={channel.id} onPress={() => dispatch(toggleActiveSelectionTheme(channel.id))}>
-              <ThemeItemText numberOfLines={1}>{channel.name}</ThemeItemText>
-              <ThemeItemCheckBox><ThemeItemCheckBoxMini></ThemeItemCheckBoxMini></ThemeItemCheckBox>
-            </ThemeItem>
-          )
-        })
-      }
+          })
+        }
 
-      {
-        selectedChannelsId.length > 0 
-          ? <ContinueBtn onPress={() => navigation.push('NewsList') }><ContinueBtnText>Продолжить</ContinueBtnText></ContinueBtn>
-          : <ContinueBtnDisabled><ContinueBtnText>Выберите тему(ы)</ContinueBtnText></ContinueBtnDisabled>
-      }  
-    </Container>
+        {
+          selectedChannelsId.length > 0 
+            ? <ContinueBtn onPress={() => navigation.push('NewsList') }><ContinueBtnText>Продолжить</ContinueBtnText></ContinueBtn>
+            : <ContinueBtnDisabled><ContinueBtnText>Выберите тему(ы)</ContinueBtnText></ContinueBtnDisabled>
+        }  
+      </Container>
+    </Fragment>
+    
   )
 }
 
 const Container = styled.ScrollView`
   padding: 5px;
+`;
+
+const Info = styled.TouchableOpacity`
+  position: absolute;
+  z-index: 99;
+  top: -44px;
+  right: 10px;
 `;
 
 const ThemeItem = styled.TouchableOpacity`

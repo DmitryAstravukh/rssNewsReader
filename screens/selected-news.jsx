@@ -19,7 +19,7 @@ export const SelectedNews = ({ route: { params: { link } } }) => {
   return (
     <Fragment>
       <ShareButton onPress={onShare}>
-        <Entypo name="share" size={36} color={MAIN_BUTTON_TEXT_COLOR} />
+        <Entypo name="share" size={32} color={MAIN_BUTTON_TEXT_COLOR} />
       </ShareButton>
       <WebView source={{ uri: link }}/>
     </Fragment>
@@ -29,6 +29,6 @@ export const SelectedNews = ({ route: { params: { link } } }) => {
 const ShareButton = styled.TouchableOpacity`
   position: absolute;
   z-index: 99;
-  top: -47px;
+  top: -44px;
   right: 10px;
 `;
