@@ -6,6 +6,7 @@ import {
 
 import { setSelectedChannelsData, clearSelectedChannelsData } from './actions';
 import Api from '../api/api';
+import { AsyncStorage } from 'react-native';
 
 const api = new Api();
 
@@ -99,33 +100,83 @@ const getDateAndImgUrl = array => {
   return [date, imgUrl];
 }
 
+const getCachedItem = async channelName => {
+  try {
+    return await AsyncStorage.getItem(channelName);// returning null when nothing finded
+  } catch (error) {
+    alert('Ошибка получения данных из кэша')
+  } 
+}
+
+const replaceCachedChannelsData = async newData => {
+  try {
+    const res = await AsyncStorage.removeItem(newData.channelName);
+    if(res === null){
+      await AsyncStorage.setItem(newData.channelName, JSON.stringify(newData));
+    }  
+  }
+  catch(exception) {
+      alert('Ошибка удаления старого кэша')
+  }
+}
+
+const setCachedNewsArr = async obj => {
+  try {
+    const cachedChannelsData = await getCachedItem(obj.channelName);
+
+    if(cachedChannelsData === null){
+      console.log('if(cachedChannelsData === null)');
+      await AsyncStorage.setItem(obj.channelName, JSON.stringify(obj));
+    } else {
+      replaceCachedChannelsData(obj);
+    }  
+  } catch (error) {
+    alert('Ошибка кэширования данных');
+  }
+}
 
 export const getSelectedChannelsData = () => (dispatch, getState) => {
   dispatch(clearSelectedChannelsData());
 
   let { selectedChannelsId, rssChannels } = getState();
   
-    selectedChannelsId.map(id => {
-      try {
-        api.getRssNews(rssChannels[id].link).then(newsArr => {
-          let data = newsArr.map(item => {
-            return {
-              title: item.children[0].value,
-              link: item.children[1].value,
-              date: getDateAndImgUrl(item.children)[0],
-              imageUrl: getDateAndImgUrl(item.children)[1]
-            }
-          })
-          let obj = {
-            channelName: rssChannels[id].name,
-            data
+  selectedChannelsId.map(async id => {
+    try {      
+      const newsArr = await api.getRssNews(rssChannels[id].link);
+
+        let data = await newsArr.map(item => {
+          return {
+            title: item.children[0].value,
+            link: item.children[1].value,
+            date: getDateAndImgUrl(item.children)[0],
+            imageUrl: getDateAndImgUrl(item.children)[1]
           }
-          dispatch(setSelectedChannelsData(obj));
         })
-      } catch (error) {
-        alert(error.message)
+
+        let obj = {
+          channelName: rssChannels[id].name,
+          data
+        }
+
+        setCachedNewsArr(obj);
+        dispatch(setSelectedChannelsData(obj));
+
+    } catch (error) {
+      const cachedData = await getCachedItem(rssChannels[id].name);
+
+      if(cachedData === null) {
+        alert(`Статей из категории "${rssChannels[id].name}" нет в кэше. Для просмотра необходим интернет`)
+      } else {
+        if(error.message === 'Network Error'){
+          alert('Отсутствует подключение к интернету, данные будут загружены из кэша');
+        }
+        dispatch(setSelectedChannelsData(JSON.parse(cachedData)));
       }
-    })
+
+      
+
+    }
+  })
   
   
 }

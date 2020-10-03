@@ -21,6 +21,8 @@ const ThemeItemComponent = ({ imageUrl, title, date, link, navigation }) => {
 }
 
 const Theme = ({ obj, navigation }) => {
+  // console.log('*************************************************************************');
+  // console.log(obj);
   return (
     <ThemeContainer>
       <ThemeName>{obj.channelName}</ThemeName>
