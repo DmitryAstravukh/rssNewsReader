@@ -21,8 +21,6 @@ const ThemeItemComponent = ({ imageUrl, title, date, link, navigation }) => {
 }
 
 const Theme = ({ obj, navigation }) => {
-  // console.log('*************************************************************************');
-  // console.log(obj);
   return (
     <ThemeContainer>
       <ThemeName>{obj.channelName}</ThemeName>
@@ -41,7 +39,6 @@ export const NewsList = ({ navigation }) => {
 
   const selectedChannelsId = useSelector(state => state.selectedChannelsId);
   const selectedChannelsData = useSelector(state => state.selectedChannelsData);
-  //if(selectedChannelsId.length < 1) navigation.goBack();
   
   useEffect(() => {
     dispatch(getSelectedChannelsData())

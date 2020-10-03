@@ -1,15 +1,7 @@
-import { applyMiddleware, createStore, compose } from 'redux';
-import { offline } from '@redux-offline/redux-offline';
-import offlineConfig from '@redux-offline/redux-offline/lib/defaults';
+import { applyMiddleware, createStore } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import reducer from './reducer';
 
-const store = createStore(
-  reducer,
-  //compose(
-   // offline(offlineConfig),
-    applyMiddleware(thunkMiddleware)
-  //)
-);
+const store = createStore(reducer,applyMiddleware(thunkMiddleware));
 export default store;
 

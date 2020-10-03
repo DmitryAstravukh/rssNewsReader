@@ -93,10 +93,9 @@ const getDateAndImgUrl = array => {
   let date = '';
   let imgUrl = '';
   array.forEach(item => {
-    if(!isNaN(Date.parse(item.value))) date = item.value;
+    if(!isNaN(Date.parse(item.value))) date = item.value.substring(0, item.value.length-6);
     if(item.name === 'media:content') imgUrl = item.attributes.url
   })
-  date = date.substring(0, date.length-6);
   return [date, imgUrl];
 }
 
@@ -116,7 +115,7 @@ const replaceCachedChannelsData = async newData => {
     }  
   }
   catch(exception) {
-      alert('Ошибка удаления старого кэша')
+    alert('Ошибка удаления старого кэша')
   }
 }
 
@@ -172,12 +171,9 @@ export const getSelectedChannelsData = () => (dispatch, getState) => {
         dispatch(setSelectedChannelsData(JSON.parse(cachedData)));
       }
 
-      
-
     }
   })
-  
-  
+   
 }
 
 const reducer = (state = inicialState, action) => {

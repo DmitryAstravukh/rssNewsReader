@@ -28,7 +28,7 @@ const App = () => {
             {props => <ThemeSelection {...props} />}
           </Stack.Screen>
 
-          <Stack.Screen name='NewsList' options={{ title: 'Новости' }}>{/*, headerLeft: null */}
+          <Stack.Screen name='NewsList' options={{ title: 'Новости' }}>
             {props => <NewsList {...props} />}
           </Stack.Screen> 
 
