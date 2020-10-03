@@ -120,12 +120,11 @@ const replaceCachedChannelsData = async newData => {
   }
 }
 
-const setCachedNewsArr = async obj => {
+const setCachedChannelData = async obj => {
   try {
     const cachedChannelsData = await getCachedItem(obj.channelName);
 
     if(cachedChannelsData === null){
-      console.log('if(cachedChannelsData === null)');
       await AsyncStorage.setItem(obj.channelName, JSON.stringify(obj));
     } else {
       replaceCachedChannelsData(obj);
@@ -158,7 +157,7 @@ export const getSelectedChannelsData = () => (dispatch, getState) => {
           data
         }
 
-        setCachedNewsArr(obj);
+        setCachedChannelData(obj);
         dispatch(setSelectedChannelsData(obj));
 
     } catch (error) {
