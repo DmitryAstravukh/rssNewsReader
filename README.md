@@ -1,2 +1,2 @@
 # rssNewsReader
-rss News Reader
+Laboratory work on React Native + Expo with styled component
